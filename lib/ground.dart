@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flame/components.dart';
@@ -13,12 +14,22 @@ class Ground extends PositionComponent {
           key: ComponentKey.named(keyName),
         );
 
+  late Sprite fingerSprite;
+
+  @override
+  Future<void> onLoad() async {
+    await super.onLoad();
+    fingerSprite = await Sprite.load('finger.png');
+  }
+
   @override
   void render(Canvas canvas) {
-    canvas.drawRect(
-      Rect.fromLTWH(0, 0, width, height),
-      Paint()..color = Colors.red,
+    fingerSprite.render(
+      canvas,
+      size: Vector2(100, 100),
+      position: Vector2(57, 0),
     );
+
     super.render(canvas);
   }
 }

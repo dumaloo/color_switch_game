@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:color_switch_game/my_game.dart';
 import 'package:flame/components.dart';
+import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -13,6 +14,7 @@ class CircleRotator extends PositionComponent with HasGameRef<MyGame> {
   }) : super(anchor: Anchor.center);
 
   final double thickness;
+  final double rotationSpeed = 2;
 
   @override
   FutureOr<void> onLoad() {
@@ -31,27 +33,16 @@ class CircleRotator extends PositionComponent with HasGameRef<MyGame> {
         sweepAngle: sweep,
       ));
     }
-  }
 
-  @override
-  void render(Canvas canvas) {
-    // calculate the radius of the circle
-    // based on the size and thickness of the circle
-    // the circle should be drawn in the center of the component
-    // so the final radius is calculated by dividing the size by 2
-    // and subtracting the thickness divided by 2
-    // this will give the radius of the circle
-    final radius = (size.x / 2) - (thickness / 2);
-
-    // canvas.drawCircle(
-    //   (size / 2).toOffset(),
-    //   radius,
-    //   Paint()
-    //     ..color = Colors.blueAccent
-    //     ..strokeWidth = thickness
-    //     ..style = PaintingStyle.stroke,
-    // );
-    super.render(canvas);
+    // add a rotation effect to the circle
+    add(
+      RotateEffect.to(
+          circle,
+          EffectController(
+            speed: rotationSpeed,
+            infinite: true,
+          )),
+    );
   }
 }
 
