@@ -4,7 +4,10 @@ import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
 class Player extends PositionComponent with HasGameRef<MyGame> {
-  Player({this.playerRadius = 15});
+  Player({
+    required super.position,
+    this.playerRadius = 15,
+  });
 
   final _velocity = Vector2.zero();
   final _jumpSpeed = 350.0;

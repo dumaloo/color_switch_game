@@ -1,3 +1,4 @@
+import 'package:color_switch_game/circle_rotator.dart';
 import 'package:color_switch_game/ground.dart';
 import 'package:color_switch_game/player.dart';
 import 'package:flame/components.dart';
@@ -8,7 +9,15 @@ import 'package:flame/game.dart';
 class MyGame extends FlameGame with TapCallbacks {
   late Player myPlayer;
 
-  MyGame()
+  final List<Color> gameColors;
+
+  MyGame(
+      {this.gameColors = const [
+        Colors.redAccent,
+        Colors.greenAccent,
+        Colors.blueAccent,
+        Colors.yellowAccent,
+      ]})
       : super(
           camera: CameraComponent.withFixedResolution(
             width: 600,
@@ -24,7 +33,8 @@ class MyGame extends FlameGame with TapCallbacks {
     world.add(
       Ground(position: Vector2(0, 400)),
     );
-    world.add(myPlayer = Player());
+    world.add(myPlayer = Player(position: Vector2(0, 250)));
+    generateGameComponents();
     super.onMount();
   }
 
@@ -44,5 +54,12 @@ class MyGame extends FlameGame with TapCallbacks {
   void onTapDown(TapDownEvent event) {
     myPlayer.jump();
     super.onTapDown(event);
+  }
+
+  void generateGameComponents() {
+    world.add(CircleRotator(
+      position: Vector2(0, 100),
+      size: Vector2(200, 200),
+    ));
   }
 }
