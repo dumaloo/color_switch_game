@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class Player extends PositionComponent with HasGameRef<MyGame> {
   Player({
     required super.position,
-    this.playerRadius = 15,
+    this.playerRadius = 13.5,
   });
 
   final _velocity = Vector2.zero();
@@ -14,6 +14,8 @@ class Player extends PositionComponent with HasGameRef<MyGame> {
   final _gravity = 980.0;
 
   final double playerRadius;
+
+  Color _color = Colors.white;
 
   @override
   void onMount() {
@@ -51,7 +53,7 @@ class Player extends PositionComponent with HasGameRef<MyGame> {
     canvas.drawCircle(
       (size / 2).toOffset(),
       playerRadius,
-      Paint()..color = Colors.yellow,
+      Paint()..color = _color,
     );
   }
 
