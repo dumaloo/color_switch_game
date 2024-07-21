@@ -7,7 +7,7 @@ import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 
-class MyGame extends FlameGame with TapCallbacks {
+class MyGame extends FlameGame with TapCallbacks, HasCollisionDetection {
   late Player myPlayer;
 
   final List<Color> gameColors;
@@ -31,11 +31,7 @@ class MyGame extends FlameGame with TapCallbacks {
 
   @override
   void onMount() {
-    world.add(
-      Ground(position: Vector2(0, 400)),
-    );
-    world.add(myPlayer = Player(position: Vector2(0, 250)));
-    generateGameComponents();
+    _initializeGame();
     super.onMount();
   }
 
@@ -57,11 +53,30 @@ class MyGame extends FlameGame with TapCallbacks {
     super.onTapDown(event);
   }
 
-  void generateGameComponents() {
+  void _initializeGame() {
+    world.add(
+      Ground(position: Vector2(0, 400)),
+    );
+    world.add(myPlayer = Player(position: Vector2(0, 250)));
+    camera.moveTo(Vector2(0, 0));
+    _generateGameComponents();
+  }
+
+  void _generateGameComponents() {
     world.add(ColorSwitcher(position: Vector2(0, 180)));
     world.add(CircleRotator(
       position: Vector2(0, 0),
       size: Vector2(200, 200),
     ));
+  }
+
+  void gameOver() {
+    // game over logic
+    for (var element in world.children) {
+      element.removeFromParent();
+    }
+
+    // restart the game
+    _initializeGame();
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:color_switch_game/my_game.dart';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
@@ -61,7 +62,65 @@ class CircleArc extends PositionComponent with ParentIsA<CircleRotator> {
   void onMount() {
     size = parent.size;
     position = size / 2;
+    _addHitBox();
     super.onMount();
+  }
+
+  void _addHitBox() {
+    // the center of the circle
+    final center = size / 2;
+
+    // how many points the polygon will have
+    const precision = 8;
+
+    // the angle between each point
+    final segment = sweepAngle / (precision - 1);
+
+    // the radius of the circle
+    final radius = size.x / 2;
+
+    List<Vector2> points = [];
+
+    // add the points of the polygon
+    // that will be used as the hitbox
+
+    for (int i = 0; i < precision; i++) {
+      // how did you draw this?
+      // imagine a circle with radius 1
+      // the x and y coordinates of the points
+      // are the cos and sin of the angle
+      // multiplied by the radius
+
+      // the angle of the current point
+      final thisSegment = startAngle + segment * i;
+      points.add(
+        Vector2(
+          // x = center.x + radius * cos(angle)
+          // y = center.y + radius * sin(angle)
+          center.x + radius * math.cos(thisSegment),
+          center.y + radius * math.sin(thisSegment),
+        ),
+      );
+    }
+
+    // for the inner circle
+    for (int i = precision - 1; i >= 0; i--) {
+      final thisSegment = startAngle + segment * i;
+      points.add(
+        Vector2(
+          center.x + (radius - parent.thickness) * math.cos(thisSegment),
+          center.y + (radius - parent.thickness) * math.sin(thisSegment),
+        ),
+      );
+    }
+
+    // add the hitbox to the component
+    add(
+      PolygonHitbox(
+        points,
+        collisionType: CollisionType.passive,
+      ),
+    );
   }
 
   @override

@@ -1,9 +1,11 @@
 import 'package:color_switch_game/my_game.dart';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class ColorSwitcher extends PositionComponent with HasGameRef<MyGame> {
+class ColorSwitcher extends PositionComponent
+    with HasGameRef<MyGame>, CollisionCallbacks {
   ColorSwitcher({
     required super.position,
     this.radius = 18,
@@ -13,6 +15,17 @@ class ColorSwitcher extends PositionComponent with HasGameRef<MyGame> {
         );
 
   final double radius;
+
+  @override
+  void onLoad() {
+    super.onLoad();
+    add(CircleHitbox(
+      position: size / 2,
+      radius: radius,
+      anchor: anchor,
+      collisionType: CollisionType.active,
+    ));
+  }
 
   @override
   void render(Canvas canvas) {
