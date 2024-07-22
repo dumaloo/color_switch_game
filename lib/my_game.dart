@@ -2,13 +2,12 @@ import 'package:color_switch_game/circle_rotator.dart';
 import 'package:color_switch_game/color_switcher.dart';
 import 'package:color_switch_game/ground.dart';
 import 'package:color_switch_game/player.dart';
+import 'package:color_switch_game/star_component.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
-
-//
 
 class MyGame extends FlameGame
     with TapCallbacks, HasCollisionDetection, HasDecorator, HasTimeScale {
@@ -77,6 +76,9 @@ class MyGame extends FlameGame
     world.add(CircleRotator(
       position: Vector2(0, 0),
       size: Vector2(200, 200),
+    ));
+    world.add(StarComponent(
+      position: Vector2(0, 0),
     ));
     world.add(ColorSwitcher(position: Vector2(0, -200)));
     world.add(CircleRotator(
