@@ -2,6 +2,7 @@ import 'package:color_switch_game/circle_rotator.dart';
 import 'package:color_switch_game/color_switcher.dart';
 import 'package:color_switch_game/ground.dart';
 import 'package:color_switch_game/my_game.dart';
+import 'package:color_switch_game/star_component.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
@@ -88,6 +89,10 @@ class Player extends PositionComponent
         // game over logic
         gameRef.gameOver();
       }
+    } else if (other is StarComponent) {
+      other.removeFromParent();
+      // add score
+      gameRef.addScore();
     }
   }
 

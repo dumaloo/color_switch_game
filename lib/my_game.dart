@@ -15,6 +15,8 @@ class MyGame extends FlameGame
 
   final List<Color> gameColors;
 
+  final ValueNotifier<int> currentScore = ValueNotifier(0);
+
   MyGame(
       {this.gameColors = const [
         Colors.redAccent,
@@ -63,6 +65,9 @@ class MyGame extends FlameGame
   }
 
   void _initializeGame() {
+    // reset the score
+    currentScore.value = 0;
+
     world.add(
       Ground(position: Vector2(0, 400)),
     );
@@ -89,6 +94,9 @@ class MyGame extends FlameGame
       position: Vector2(0, -400),
       size: Vector2(210, 210),
     ));
+    world.add(StarComponent(
+      position: Vector2(0, -400),
+    ));
   }
 
   void gameOver() {
@@ -112,5 +120,10 @@ class MyGame extends FlameGame
   void resumeGame() {
     (decorator as PaintDecorator).addBlur(0);
     timeScale = 1.0;
+  }
+
+  void addScore() {
+    // add score logic
+    currentScore.value++;
   }
 }

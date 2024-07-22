@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/rendering.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,9 @@ class StarComponent extends PositionComponent {
     await super.onLoad();
     _starSprite = await Sprite.load('star.png');
     decorator.addLast(PaintDecorator.tint(Colors.white));
+    add(CircleHitbox(
+      radius: size.x / 2,
+    ));
   }
 
   @override

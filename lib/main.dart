@@ -36,17 +36,35 @@ class _HomePageState extends State<HomePage> {
           GameWidget(game: _myGame),
           if (_myGame.isGamePlaying)
             Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                icon:
-                    Icon(_myGame.isGamePaused ? Icons.play_arrow : Icons.pause),
-                onPressed: () {
-                  setState(() {
-                    _myGame.pauseGame();
-                  });
-                },
-              ),
-            ),
+                alignment: Alignment.topLeft,
+                child: Row(
+                  children: [
+                    IconButton(
+                      icon: Icon(_myGame.isGamePaused
+                          ? Icons.play_arrow
+                          : Icons.pause),
+                      onPressed: () {
+                        setState(() {
+                          _myGame.pauseGame();
+                        });
+                      },
+                    ),
+                    // display score
+                    ValueListenableBuilder<int>(
+                      valueListenable: _myGame.currentScore,
+                      builder: (context, score, child) {
+                        return Text(
+                          score.toString(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                )),
           if (_myGame.isGamePaused)
             Center(
               child: Column(
