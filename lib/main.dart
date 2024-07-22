@@ -21,11 +21,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late MyGame _myGame;
+  bool _isGameOver = false;
 
   @override
   void initState() {
     _myGame = MyGame();
+    _myGame.onGameOver = _handleGameOver;
     super.initState();
+  }
+
+  void _handleGameOver() {
+    setState(() {
+      _isGameOver = true;
+    });
+  }
+
+  void _restartGame() {
+    setState(() {
+      _isGameOver = false;
+      _myGame.initializeGame();
+    });
   }
 
   @override
@@ -91,6 +106,29 @@ class _HomePageState extends State<HomePage> {
                         Icons.play_arrow,
                         size: 100,
                       )),
+                ],
+              ),
+            ),
+          if (_isGameOver)
+            Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    "PLAY AGAIN",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: _restartGame,
+                    icon: const Icon(
+                      Icons.replay,
+                      size: 80,
+                    ),
+                  ),
                 ],
               ),
             ),

@@ -18,6 +18,8 @@ class MyGame extends FlameGame
 
   final ValueNotifier<int> currentScore = ValueNotifier(0);
 
+  bool isGameOver = false;
+
   MyGame(
       {this.gameColors = const [
         Colors.redAccent,
@@ -44,7 +46,7 @@ class MyGame extends FlameGame
 
   @override
   void onMount() {
-    _initializeGame();
+    initializeGame();
     super.onMount();
   }
 
@@ -66,57 +68,98 @@ class MyGame extends FlameGame
     super.onTapDown(event);
   }
 
-  void _initializeGame() {
+  void initializeGame() {
     // reset the score
     currentScore.value = 0;
+
+    isGameOver = false;
 
     world.add(
       Ground(position: Vector2(0, 280)),
     );
     world.add(myPlayer = Player(position: Vector2(0, 250)));
     camera.moveTo(Vector2(0, 0));
-    _generateGameComponents();
+    _genrateGameComponentsAsNeeded(Vector2(0, -40));
+    _genrateGameComponentsAsNeeded(Vector2(0, -1400));
+    _genrateGameComponentsAsNeeded(Vector2(0, -2700));
+    _genrateGameComponentsAsNeeded(Vector2(0, -4000));
+    _genrateGameComponentsAsNeeded(Vector2(0, -5300));
+    _genrateGameComponentsAsNeeded(Vector2(0, -6600));
 
-    // FlameAudio.bgm.play('background_music.mp3');
+    FlameAudio.bgm.play('background_music.mp3');
   }
 
-  void _generateGameComponents() {
-    world.add(ColorSwitcher(position: Vector2(0, 200)));
+  // generateInfiniteGameComponents
+  void _genrateGameComponentsAsNeeded(Vector2 generateFromPosition) {
+    // generate game components as needed
+    world.add(
+      ColorSwitcher(
+        position: generateFromPosition + Vector2(0, 200),
+      ),
+    );
     world.add(CircleRotator(
-      position: Vector2(0, 0),
+      position: generateFromPosition + Vector2(0, 0),
       size: Vector2(200, 200),
     ));
     world.add(StarComponent(
-      position: Vector2(0, 0),
+      position: generateFromPosition + Vector2(0, 0),
     ));
-    world.add(ColorSwitcher(position: Vector2(0, -200)));
+
+    // generate game components as needed
+    generateFromPosition += Vector2(0, -400);
+
+    world.add(
+      ColorSwitcher(
+        position: generateFromPosition + Vector2(0, 200),
+      ),
+    );
     world.add(CircleRotator(
-      position: Vector2(0, -400),
-      size: Vector2(180, 180),
-    ));
-    world.add(CircleRotator(
-      position: Vector2(0, -400),
-      size: Vector2(210, 210),
+      position: generateFromPosition + Vector2(0, 0),
+      size: Vector2(200, 200),
     ));
     world.add(StarComponent(
-      position: Vector2(0, -400),
+      position: generateFromPosition + Vector2(0, 0),
+    ));
+
+    // generate game components as needed
+    generateFromPosition += Vector2(0, -450);
+
+    world.add(
+      ColorSwitcher(
+        position: generateFromPosition + Vector2(0, 200),
+      ),
+    );
+    world.add(CircleRotator(
+      position: generateFromPosition + Vector2(0, 0),
+      size: Vector2(200, 200),
+    ));
+    world.add(CircleRotator(
+      position: generateFromPosition + Vector2(0, 0),
+      size: Vector2(180, 180),
+    ));
+    world.add(StarComponent(
+      position: generateFromPosition + Vector2(0, 0),
     ));
   }
 
   void gameOver() {
     FlameAudio.bgm.stop();
 
+    isGameOver = true;
+
     // game over logic
     for (var element in world.children) {
       element.removeFromParent();
     }
 
+    onGameOver?.call();
+
     // restart the game
-    _initializeGame();
+    // _initializeGame();
   }
 
   bool get isGamePaused => timeScale == 0.0;
-  bool get isGamePlaying => !isGamePaused;
+  bool get isGamePlaying => !isGamePaused && !isGameOver;
 
   void pauseGame() {
     (decorator as PaintDecorator).addBlur(10);
@@ -134,4 +177,6 @@ class MyGame extends FlameGame
     // add score logic
     currentScore.value++;
   }
+
+  VoidCallback? onGameOver;
 }
