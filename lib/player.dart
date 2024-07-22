@@ -90,7 +90,7 @@ class Player extends PositionComponent
         gameRef.gameOver();
       }
     } else if (other is StarComponent) {
-      other.removeFromParent();
+      other.showCollectEffect();
       // add score
       gameRef.addScore();
     }

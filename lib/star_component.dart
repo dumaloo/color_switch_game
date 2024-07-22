@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/rendering.dart';
+import 'package:flame/particles.dart';
 import 'package:flutter/material.dart';
 
 class StarComponent extends PositionComponent {
@@ -19,8 +20,7 @@ class StarComponent extends PositionComponent {
   @override
   FutureOr<void> onLoad() async {
     await super.onLoad();
-    _starSprite = await Sprite.load('star.png');
-    decorator.addLast(PaintDecorator.tint(Colors.white));
+    _starSprite = await Sprite.load('star_icon.png');
     add(CircleHitbox(
       radius: size.x / 2,
     ));
@@ -35,5 +35,39 @@ class StarComponent extends PositionComponent {
       size: size,
       anchor: Anchor.center,
     );
+  }
+
+  void showCollectEffect() {
+    // Add some effect here
+
+    final rnd = Random();
+    Vector2 randomVector2() => (Vector2.random(rnd) - Vector2.random(rnd)) * 80;
+
+    parent!.add(
+      ParticleSystemComponent(
+          position: position,
+          particle: Particle.generate(
+              count: 30,
+              lifespan: 1,
+              generator: (i) {
+                return AcceleratedParticle(
+                    acceleration: randomVector2(),
+                    speed: randomVector2(),
+                    child: ComputedParticle(
+                      renderer: (canvas, particle) {
+                        _starSprite.render(
+                          canvas,
+                          size: (size / 2) * (1 - particle.progress),
+                          anchor: Anchor.center,
+                          overridePaint: Paint()
+                            ..color =
+                                Colors.white.withOpacity(1 - particle.progress),
+                        );
+                      },
+                    ));
+              })),
+    );
+
+    removeFromParent();
   }
 }
