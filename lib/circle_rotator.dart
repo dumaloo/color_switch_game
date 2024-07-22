@@ -15,7 +15,7 @@ class CircleRotator extends PositionComponent with HasGameRef<MyGame> {
   }) : super(anchor: Anchor.center);
 
   final double thickness;
-  final double rotationSpeed = 2;
+  final double rotationSpeed = 1.5;
 
   @override
   FutureOr<void> onLoad() {
