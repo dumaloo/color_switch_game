@@ -6,6 +6,7 @@ import 'package:color_switch_game/star_component.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
 class Player extends PositionComponent
@@ -95,6 +96,9 @@ class Player extends PositionComponent
       other.showCollectEffect();
       // add score
       gameRef.addScore();
+
+      // doesnot play on linux desktop
+      FlameAudio.play('pickupCoin.wav');
     }
   }
 

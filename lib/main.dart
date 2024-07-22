@@ -36,7 +36,8 @@ class _HomePageState extends State<HomePage> {
           GameWidget(game: _myGame),
           if (_myGame.isGamePlaying)
             Align(
-                alignment: Alignment.topLeft,
+              alignment: Alignment.topLeft,
+              child: SafeArea(
                 child: Row(
                   children: [
                     IconButton(
@@ -64,7 +65,9 @@ class _HomePageState extends State<HomePage> {
                       },
                     ),
                   ],
-                )),
+                ),
+              ),
+            ),
           if (_myGame.isGamePaused)
             Center(
               child: Column(
