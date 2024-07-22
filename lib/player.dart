@@ -13,7 +13,9 @@ class Player extends PositionComponent
   Player({
     required super.position,
     this.playerRadius = 13.5,
-  });
+  }) : super(
+          priority: 20,
+        );
 
   final _velocity = Vector2.zero();
   final _jumpSpeed = 350.0;
