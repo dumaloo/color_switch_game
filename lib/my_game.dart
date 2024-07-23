@@ -131,11 +131,11 @@ class MyGame extends FlameGame
     );
     world.add(CircleRotator(
       position: generateFromPosition + Vector2(0, 0),
-      size: Vector2(200, 200),
+      size: Vector2(220, 220),
     ));
     world.add(CircleRotator(
       position: generateFromPosition + Vector2(0, 0),
-      size: Vector2(180, 180),
+      size: Vector2(160, 160),
     ));
     world.add(StarComponent(
       position: generateFromPosition + Vector2(0, 0),
