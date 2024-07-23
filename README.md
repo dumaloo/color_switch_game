@@ -9,7 +9,3 @@ You can check out the project and even give the APK a try:
 🔗 [GitHub Repository](https://github.com/dumaloo/color_switch_game)
 
 But that's not all! I'm currently working on developing another mode of the same game called **Run**. Stay tuned for more updates!
-
-## Tags
-
-#GameDevelopment #Flutter #FlameEngine #ColorSwitch #ImanTutorial #Programming #GitHub
