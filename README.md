@@ -1,16 +1,15 @@
-# color_switch_game
+# 🎮 Color Switch Clone - Classic Mode 🎮
 
-A new Flutter project.
+Ever wondered how your favorite mobile games are made? Well, I took on the challenge and created my own!
 
-## Getting Started
+I've successfully created a replica of the classic mode of the game **Color Switch**, a 2D game with several modes, using the **Flame engine** and **Flutter**. This journey wouldn't have been possible without the exceptional tutorial by Iman on YouTube. Huge thanks to [Iman](https://www.linkedin.com/in/iman-khoshabi-7782a9114/) for the comprehensive coverage of Flame, which made this success possible! Check out his YouTube channel [here](https://www.youtube.com/@imaNNeO).
 
-This project is a starting point for a Flutter application.
+You can check out the project and even give the APK a try:
 
-A few resources to get you started if this is your first Flutter project:
+🔗 [GitHub Repository](https://github.com/dumaloo/color_switch_game)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+But that's not all! I'm currently working on developing another mode of the same game called **Run**. Stay tuned for more updates!
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Tags
+
+#GameDevelopment #Flutter #FlameEngine #ColorSwitch #ImanTutorial #Programming #GitHub
