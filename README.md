@@ -7,5 +7,6 @@ I've successfully created a replica of the classic mode of the game **Color Swit
 You can check out the project and even give the APK a try:
 
 🔗 [GitHub Repository](https://github.com/dumaloo/color_switch_game)
+🔗 [Download APK](https://github.com/dumaloo/color_switch_game/blob/main/Apk/color_switch_game.apk)
 
 But that's not all! I'm currently working on developing another mode of the same game called **Run**. Stay tuned for more updates!
