@@ -6,7 +6,7 @@ void main() {
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const HomePage(),
+      home: const RunModePage(), // FOR NOW, WE WILL USE RunModePage
       theme: ThemeData.dark(),
     ),
   );

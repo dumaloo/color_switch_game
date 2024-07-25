@@ -4,10 +4,10 @@ import 'dart:ui';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
 
-class Ground extends PositionComponent {
+class ClassicModeGround extends PositionComponent {
   static const String keyName = 'single_ground_key';
 
-  Ground({required super.position})
+  ClassicModeGround({required super.position})
       : super(
           size: Vector2(200, 2),
           anchor: Anchor.center,

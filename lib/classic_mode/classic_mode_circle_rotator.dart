@@ -7,7 +7,7 @@ import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class CircleRotator extends PositionComponent with HasGameRef<MyGame> {
+class CircleRotator extends PositionComponent with HasGameRef<ClassicModeGame> {
   CircleRotator({
     super.position,
     super.size,

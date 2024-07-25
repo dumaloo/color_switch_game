@@ -10,13 +10,13 @@ class ClassicModePage extends StatefulWidget {
 }
 
 class _ClassicModePageState extends State<ClassicModePage> {
-  late MyGame _myGame;
+  late ClassicModeGame _classicModeGame;
   bool _isGameOver = false;
 
   @override
   void initState() {
-    _myGame = MyGame();
-    _myGame.onGameOver = _handleGameOver;
+    _classicModeGame = ClassicModeGame();
+    _classicModeGame.onGameOver = _handleGameOver;
     super.initState();
   }
 
@@ -29,7 +29,7 @@ class _ClassicModePageState extends State<ClassicModePage> {
   void _restartGame() {
     setState(() {
       _isGameOver = false;
-      _myGame.initializeGame();
+      _classicModeGame.initializeClassicModeGame();
     });
   }
 
@@ -38,26 +38,26 @@ class _ClassicModePageState extends State<ClassicModePage> {
     return Scaffold(
       body: Stack(
         children: [
-          GameWidget(game: _myGame),
-          if (_myGame.isGamePlaying)
+          GameWidget(game: _classicModeGame),
+          if (_classicModeGame.isGamePlaying)
             Align(
               alignment: Alignment.topLeft,
               child: SafeArea(
                 child: Row(
                   children: [
                     IconButton(
-                      icon: Icon(_myGame.isGamePaused
+                      icon: Icon(_classicModeGame.isGamePaused
                           ? Icons.play_arrow
                           : Icons.pause),
                       onPressed: () {
                         setState(() {
-                          _myGame.pauseGame();
+                          _classicModeGame.pauseGame();
                         });
                       },
                     ),
                     // display score
                     ValueListenableBuilder<int>(
-                      valueListenable: _myGame.currentScore,
+                      valueListenable: _classicModeGame.currentScore,
                       builder: (context, score, child) {
                         return Text(
                           score.toString(),
@@ -73,7 +73,7 @@ class _ClassicModePageState extends State<ClassicModePage> {
                 ),
               ),
             ),
-          if (_myGame.isGamePaused)
+          if (_classicModeGame.isGamePaused)
             Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -89,7 +89,7 @@ class _ClassicModePageState extends State<ClassicModePage> {
                   IconButton(
                       onPressed: () {
                         setState(() {
-                          _myGame.resumeGame();
+                          _classicModeGame.resumeGame();
                         });
                       },
                       icon: const Icon(

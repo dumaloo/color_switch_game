@@ -10,9 +10,9 @@ import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 
-class MyGame extends FlameGame
+class ClassicModeGame extends FlameGame
     with TapCallbacks, HasCollisionDetection, HasDecorator, HasTimeScale {
-  late Player myPlayer;
+  late ClassicModePlayer classicModePlayer;
 
   final List<Color> gameColors;
 
@@ -20,7 +20,7 @@ class MyGame extends FlameGame
 
   bool isGameOver = false;
 
-  MyGame(
+  ClassicModeGame(
       {this.gameColors = const [
         Colors.redAccent,
         Colors.greenAccent,
@@ -46,14 +46,14 @@ class MyGame extends FlameGame
 
   @override
   void onMount() {
-    initializeGame();
+    initializeClassicModeGame();
     super.onMount();
   }
 
   @override
   void update(double dt) {
     final cameraY = camera.viewfinder.position.y;
-    final playerY = myPlayer.position.y;
+    final playerY = classicModePlayer.position.y;
 
     if (playerY < cameraY) {
       camera.viewfinder.position = Vector2(0, playerY);
@@ -64,20 +64,20 @@ class MyGame extends FlameGame
 
   @override
   void onTapDown(TapDownEvent event) {
-    myPlayer.jump();
+    classicModePlayer.jump();
     super.onTapDown(event);
   }
 
-  void initializeGame() {
+  void initializeClassicModeGame() {
     // reset the score
     currentScore.value = 0;
 
     isGameOver = false;
 
     world.add(
-      Ground(position: Vector2(0, 280)),
+      ClassicModeGround(position: Vector2(0, 280)),
     );
-    world.add(myPlayer = Player(position: Vector2(0, 250)));
+    world.add(classicModePlayer = ClassicModePlayer(position: Vector2(0, 250)));
     camera.moveTo(Vector2(0, 0));
     _genrateGameComponentsAsNeeded(Vector2(0, -40));
     _genrateGameComponentsAsNeeded(Vector2(0, -1400));

@@ -9,9 +9,9 @@ import 'package:flame/extensions.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
-class Player extends PositionComponent
-    with HasGameRef<MyGame>, CollisionCallbacks {
-  Player({
+class ClassicModePlayer extends PositionComponent
+    with HasGameRef<ClassicModeGame>, CollisionCallbacks {
+  ClassicModePlayer({
     required super.position,
     this.playerRadius = 13.5,
   }) : super(
@@ -53,7 +53,8 @@ class Player extends PositionComponent
     position += _velocity * dt;
 
     // get the ground component
-    Ground ground = gameRef.findByKeyName(Ground.keyName)!;
+    ClassicModeGround ground =
+        gameRef.findByKeyName(ClassicModeGround.keyName)!;
 
     // players should not go below the ground level
     if (positionOfAnchor(Anchor.bottomCenter).y > ground.position.y) {
@@ -67,7 +68,7 @@ class Player extends PositionComponent
 
   @override
   void render(Canvas canvas) {
-    // render is called every frame to draw the player
+    // render is called every frame to draw the ClassicModePlayer
     super.render(canvas);
     canvas.drawCircle(
       (size / 2).toOffset(),
@@ -77,7 +78,7 @@ class Player extends PositionComponent
   }
 
   void jump() {
-    // jump is called when the player should jump
+    // jump is called when the ClassicModePlayer should jump
     _velocity.y = -_jumpSpeed; // jump
   }
 
@@ -103,7 +104,7 @@ class Player extends PositionComponent
   }
 
   void _changeColorRandomly() {
-    // change the color of the player randomly
+    // change the color of the ClassicModePlayer randomly
     _color = gameRef.gameColors.random();
   }
 }

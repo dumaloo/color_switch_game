@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class ColorSwitcher extends PositionComponent
-    with HasGameRef<MyGame>, CollisionCallbacks {
+    with HasGameRef<ClassicModeGame>, CollisionCallbacks {
   ColorSwitcher({
     required super.position,
     this.radius = 18,
