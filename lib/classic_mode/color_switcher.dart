@@ -1,4 +1,4 @@
-import 'package:color_switch_game/my_game.dart';
+import 'package:color_switch_game/classic_mode/my_game.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';

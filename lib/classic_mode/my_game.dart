@@ -1,8 +1,8 @@
-import 'package:color_switch_game/circle_rotator.dart';
-import 'package:color_switch_game/color_switcher.dart';
-import 'package:color_switch_game/ground.dart';
-import 'package:color_switch_game/player.dart';
-import 'package:color_switch_game/star_component.dart';
+import 'package:color_switch_game/classic_mode/circle_rotator.dart';
+import 'package:color_switch_game/classic_mode/color_switcher.dart';
+import 'package:color_switch_game/classic_mode/ground.dart';
+import 'package:color_switch_game/classic_mode/player.dart';
+import 'package:color_switch_game/classic_mode/star_component.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/rendering.dart';
