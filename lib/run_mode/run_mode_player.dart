@@ -1,45 +1,28 @@
-import 'package:color_switch_game/run_mode/run_mode_game.dart';
 import 'package:flame/components.dart';
+import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 
-class RunModePlayer extends PositionComponent with HasGameRef<RunModeGame> {
-  RunModePlayer({
-    required super.position,
-    this.playerRadius = 13.5,
-  }) : super(
-          priority: 20,
+class RunModePlayer extends PositionComponent {
+  RunModePlayer()
+      : super(
+          position: Vector2(0, 0),
+          size: Vector2.all(50),
         );
-
-  final double playerRadius;
-
-  final Color _color = Colors.white;
-
-  @override
-  void onLoad() {
-    super.onLoad();
-  }
-
-  @override
-  void onMount() {
-    position = Vector2(0, 250);
-    size = Vector2.all(playerRadius * 2);
-    anchor = Anchor.center;
-    super.onMount();
-  }
 
   @override
   void update(double dt) {
     super.update(dt);
+    // move the player to the right
+    position.x += 100 * dt;
   }
 
   @override
   void render(Canvas canvas) {
-    // render is called every frame to draw the RunModePlayer
     super.render(canvas);
     canvas.drawCircle(
-      (size / 2).toOffset(),
-      playerRadius,
-      Paint()..color = _color,
+      Offset.zero,
+      20,
+      BasicPalette.white.paint(),
     );
   }
 }
