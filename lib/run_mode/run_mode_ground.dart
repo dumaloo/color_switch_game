@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class RunModeGround extends PositionComponent {
   RunModeGround()
       : super(
-          position: Vector2(0, 25), // Position the ground lower on the screen
+          position: Vector2(0, 25),
           size: Vector2(500, 30),
         );
 
