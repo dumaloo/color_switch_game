@@ -6,6 +6,7 @@ import 'package:flame/game.dart';
 
 class RunModeGame extends FlameGame with TapCallbacks {
   late RunModePlayer player;
+  late RunModeGround ground;
 
   RunModeGame()
       : super(
@@ -19,8 +20,9 @@ class RunModeGame extends FlameGame with TapCallbacks {
   void onMount() {
     super.onMount();
     player = RunModePlayer();
+    ground = RunModeGround();
     world.add(player);
-    world.add(RunModeGround());
+    world.add(ground);
     debugMode = true;
   }
 

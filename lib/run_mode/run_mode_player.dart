@@ -1,3 +1,4 @@
+import 'package:color_switch_game/run_mode/run_mode_ground.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
@@ -6,7 +7,7 @@ class RunModePlayer extends PositionComponent {
   Vector2 _velocity = Vector2(100, 0); // Initial horizontal velocity
   final Vector2 _acceleration = Vector2(0, 1000); // Gravity
   int _jumps = 0;
-  bool onGround = false;
+  final RunModeGround ground = RunModeGround();
 
   RunModePlayer()
       : super(
@@ -17,25 +18,19 @@ class RunModePlayer extends PositionComponent {
   @override
   void update(double dt) {
     super.update(dt);
-
-    if (!onGround) {
-      _velocity += _acceleration * dt; // Apply gravity
-    }
-
+    _velocity += _acceleration * dt;
     position += _velocity * dt;
 
-    // Check for ground collision and adjust
-    if (position.y >= 0) {
-      position.y = 0;
-      onGround = true;
+    // Ensure the player doesn't fall through the ground
+    if (position.y + size.y >= ground.position.y &&
+        position.x + size.x >= ground.position.x &&
+        position.x <= ground.position.x + ground.size.x) {
+      position.y = ground.position.y - size.y;
       _velocity.y = 0;
-      _jumps = 0;
-    } else {
-      onGround = false;
+      _jumps = 0; // Reset jumps when on the ground
     }
 
-    // Ensure continuous rightward movement
-    _velocity.x = 100;
+    _velocity.x = 100; // Keep horizontal velocity constant
   }
 
   void jump() {
