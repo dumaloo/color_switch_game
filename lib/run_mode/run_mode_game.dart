@@ -3,10 +3,17 @@ import 'package:color_switch_game/run_mode/run_mode_player.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame/extensions.dart';
 
 class RunModeGame extends FlameGame with TapCallbacks {
   late RunModePlayer player;
-  late RunModeGround ground;
+  final List<RunModeGround> grounds = [
+    RunModeGround(Vector2(0, 0)),
+    RunModeGround(Vector2(603, 0)),
+    RunModeGround(Vector2(1206, 0)),
+    RunModeGround(Vector2(1809, 0)),
+    // Add more platforms as needed
+  ];
 
   RunModeGame()
       : super(
@@ -19,10 +26,9 @@ class RunModeGame extends FlameGame with TapCallbacks {
   @override
   void onMount() {
     super.onMount();
-    player = RunModePlayer();
-    ground = RunModeGround();
+    player = RunModePlayer(grounds);
     world.add(player);
-    world.add(ground);
+    world.addAll(grounds);
     debugMode = true;
   }
 

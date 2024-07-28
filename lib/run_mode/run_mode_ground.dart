@@ -3,9 +3,9 @@ import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 
 class RunModeGround extends PositionComponent {
-  RunModeGround()
+  RunModeGround(Vector2 position)
       : super(
-          position: Vector2(0, 25),
+          position: position,
           size: Vector2(500, 30),
         );
 
@@ -16,9 +16,5 @@ class RunModeGround extends PositionComponent {
       Rect.fromLTWH(0, 0, size.x, size.y),
       BasicPalette.white.paint(),
     );
-    // canvas.drawRect(
-    //   Rect.fromLTWH(605, 0, size.x, size.y),
-    //   BasicPalette.red.paint(),
-    // );
   }
 }
