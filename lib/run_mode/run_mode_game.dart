@@ -3,7 +3,6 @@ import 'package:color_switch_game/run_mode/run_mode_player.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
-import 'package:flame/extensions.dart';
 
 class RunModeGame extends FlameGame with TapCallbacks {
   late RunModePlayer player;

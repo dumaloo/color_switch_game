@@ -5,19 +5,32 @@ import 'run_mode_ground.dart';
 
 class RunModePlayer extends PositionComponent {
   Vector2 _velocity = Vector2(100, 0); // Initial horizontal velocity
-  final Vector2 _acceleration = Vector2(0, 800); // Gravity
+  final Vector2 _acceleration = Vector2(0, 500); // Gravity
   int _jumps = 0;
   final List<RunModeGround> grounds;
+  bool _hasfallen = false;
+
+  static const double fallthreshold = 1000.0;
 
   RunModePlayer(this.grounds)
       : super(
           position: Vector2(0, 0),
           size: Vector2.all(50),
-        );
+        ) {
+    // ensure player starts above the ground
+    if (grounds.isNotEmpty) {
+      position.y = grounds.first.position.y - size.y;
+    }
+  }
 
   @override
   void update(double dt) {
     super.update(dt);
+
+    if (_hasfallen) {
+      return;
+    }
+
     _velocity += _acceleration * dt;
     position += _velocity * dt;
 
@@ -44,10 +57,17 @@ class RunModePlayer extends PositionComponent {
     }
 
     _velocity.x = 100; // Keep horizontal velocity constant
+
+    // Check if player has fallen off the screen
+    if (position.y > fallthreshold) {
+      _hasfallen = true;
+      _velocity = Vector2.zero();
+    }
   }
 
   void jump() {
-    if (_jumps < 2) {
+    if (_jumps < 2 && !_hasfallen) {
+      // prevent jumping if player has fallen
       _velocity.y = -500; // Jump velocity
       _jumps++;
     }
