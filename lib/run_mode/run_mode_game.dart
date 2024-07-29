@@ -1,3 +1,4 @@
+import 'package:color_switch_game/run_mode/run_mode_brick.dart';
 import 'package:color_switch_game/run_mode/run_mode_ground.dart';
 import 'package:color_switch_game/run_mode/run_mode_player.dart';
 import 'package:flame/components.dart';
@@ -14,6 +15,13 @@ class RunModeGame extends FlameGame with TapCallbacks {
     // Add more platforms as needed
   ];
 
+  final List<RunModeBrick> bricks = [
+    RunModeBrick(Vector2(300, -150)),
+    RunModeBrick(Vector2(900, -150)),
+    RunModeBrick(Vector2(1500, -200)),
+    // Add more bricks as needed
+  ];
+
   RunModeGame()
       : super(
           camera: CameraComponent.withFixedResolution(
@@ -28,6 +36,7 @@ class RunModeGame extends FlameGame with TapCallbacks {
     player = RunModePlayer(grounds);
     world.add(player);
     world.addAll(grounds);
+    world.addAll(bricks);
     debugMode = true;
   }
 
@@ -46,6 +55,7 @@ class RunModeGame extends FlameGame with TapCallbacks {
       camera.viewfinder.position =
           Vector2(playerX, camera.viewfinder.position.y);
     }
+    player.checkCollision(bricks); // Check for collisions with bricks
 
     super.update(dt);
   }

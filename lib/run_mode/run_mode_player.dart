@@ -1,6 +1,8 @@
+import 'package:color_switch_game/run_mode/run_mode_brick.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
+import 'package:flutter/material.dart';
 import 'run_mode_ground.dart';
 
 class RunModePlayer extends PositionComponent {
@@ -9,6 +11,7 @@ class RunModePlayer extends PositionComponent {
   int _jumps = 0;
   final List<RunModeGround> grounds;
   bool _hasfallen = false;
+  int stars = 0;
 
   static const double fallthreshold = 1000.0;
 
@@ -70,6 +73,25 @@ class RunModePlayer extends PositionComponent {
       // prevent jumping if player has fallen
       _velocity.y = -500; // Jump velocity
       _jumps++;
+    }
+  }
+
+  void checkCollision(List<RunModeBrick> bricks) {
+    for (var brick in bricks) {
+      if (position.x < brick.position.x + brick.size.x &&
+          position.x + size.x > brick.position.x &&
+          position.y < brick.position.y + brick.size.y &&
+          position.y + size.y > brick.position.y) {
+        // Collision detected
+        if (!brick.collected) {
+          // Check if the brick is already collected
+          brick.collected = true; // Mark the brick as collected
+
+          brick.removeFromParent(); // Remove the brick from the game world
+          stars++; // Add a single point for each brick collected
+          debugPrint('Stars: $stars');
+        }
+      }
     }
   }
 
