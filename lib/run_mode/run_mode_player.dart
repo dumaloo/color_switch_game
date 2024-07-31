@@ -1,4 +1,5 @@
 import 'package:color_switch_game/run_mode/run_mode_brick.dart';
+import 'package:color_switch_game/run_mode/run_mode_shuriken.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
@@ -76,7 +77,8 @@ class RunModePlayer extends PositionComponent {
     }
   }
 
-  void checkCollision(List<RunModeBrick> bricks) {
+  void checkCollision(
+      List<RunModeBrick> bricks, List<RunModeShuriken> shurikens) {
     for (var brick in bricks) {
       if (position.x < brick.position.x + brick.size.x &&
           position.x + size.x > brick.position.x &&
@@ -91,6 +93,18 @@ class RunModePlayer extends PositionComponent {
           stars++; // Add a single point for each brick collected
           debugPrint('Stars: $stars');
         }
+      }
+    }
+
+    // check collision with shurikens
+    for (var shuriken in shurikens) {
+      if (position.x < shuriken.position.x + shuriken.size.x &&
+          position.x + size.x > shuriken.position.x &&
+          position.y < shuriken.position.y + shuriken.size.y &&
+          position.y + size.y > shuriken.position.y) {
+        // Collision detected
+        // Game over
+        debugPrint('Game Over');
       }
     }
   }
