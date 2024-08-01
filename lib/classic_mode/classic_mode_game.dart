@@ -103,6 +103,7 @@ class ClassicModeGame extends FlameGame
     ));
     world.add(StarComponent(
       position: generateFromPosition + Vector2(0, 0),
+      mode: GameMode.classic,
     ));
 
     // generate game components as needed
@@ -119,6 +120,7 @@ class ClassicModeGame extends FlameGame
     ));
     world.add(StarComponent(
       position: generateFromPosition + Vector2(0, 0),
+      mode: GameMode.classic,
     ));
 
     // generate game components as needed
@@ -139,6 +141,7 @@ class ClassicModeGame extends FlameGame
     ));
     world.add(StarComponent(
       position: generateFromPosition + Vector2(0, 0),
+      mode: GameMode.classic,
     ));
   }
 

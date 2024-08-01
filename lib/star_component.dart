@@ -6,13 +6,17 @@ import 'package:flame/components.dart';
 import 'package:flame/particles.dart';
 import 'package:flutter/material.dart';
 
-class StarComponent extends PositionComponent {
+enum GameMode { classic, run }
+
+class StarComponent extends PositionComponent with HasGameRef {
   late Sprite _starSprite;
+  final GameMode mode;
 
   StarComponent({
     required super.position,
+    required this.mode,
   }) : super(
-          size: Vector2(38, 38),
+          size: mode == GameMode.classic ? Vector2(20, 20) : Vector2(38, 38),
           anchor: Anchor.center,
         );
 
@@ -37,36 +41,77 @@ class StarComponent extends PositionComponent {
   }
 
   void showCollectEffect() {
-    // Add some effect here
-
     final rnd = Random();
     Vector2 randomVector2() => (Vector2.random(rnd) - Vector2.random(rnd)) * 80;
 
-    parent!.add(
-      ParticleSystemComponent(
+    if (mode == GameMode.classic) {
+      // Classic mode effect
+      parent?.add(
+        ParticleSystemComponent(
           position: position,
           particle: Particle.generate(
-              count: 30,
-              lifespan: 0.8,
-              generator: (i) {
-                return AcceleratedParticle(
-                    acceleration: randomVector2(),
-                    speed: randomVector2(),
-                    child: ComputedParticle(
-                      renderer: (canvas, particle) {
-                        _starSprite.render(
-                          canvas,
-                          size: (size) * (1 - particle.progress),
-                          anchor: Anchor.center,
-                          overridePaint: Paint()
-                            ..color =
-                                Colors.white.withOpacity(1 - particle.progress),
-                        );
-                      },
-                    ));
-              })),
-    );
+            count: 30,
+            lifespan: 0.8,
+            generator: (i) {
+              return AcceleratedParticle(
+                acceleration: randomVector2(),
+                speed: randomVector2(),
+                child: ComputedParticle(
+                  renderer: (canvas, particle) {
+                    _starSprite.render(
+                      canvas,
+                      size: (size) * (1 - particle.progress),
+                      anchor: Anchor.center,
+                      overridePaint: Paint()
+                        ..color =
+                            Colors.white.withOpacity(1 - particle.progress),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+        ),
+      );
+    } else if (mode == GameMode.run) {
+      // Run mode effect - make star big and fade away
+      add(
+        TimerComponent(
+          period: 0.5,
+          repeat: false,
+          onTick: () {
+            removeFromParent();
+          },
+        ),
+      );
 
-    removeFromParent();
+      parent?.add(
+        ParticleSystemComponent(
+          position: position,
+          particle: Particle.generate(
+            count: 30,
+            lifespan: 0.8,
+            generator: (i) {
+              return AcceleratedParticle(
+                acceleration: randomVector2(),
+                speed: randomVector2(),
+                child: ComputedParticle(
+                  renderer: (canvas, particle) {
+                    _starSprite.render(
+                      canvas,
+                      size: (size) * (1 - particle.progress),
+                      anchor: Anchor.center,
+                      overridePaint: Paint()
+                        ..color =
+                            Colors.white.withOpacity(1 - particle.progress),
+                    );
+                  },
+                ),
+              );
+            },
+          ),
+        ),
+      );
+    }
   }
 }
