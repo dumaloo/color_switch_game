@@ -1,6 +1,7 @@
 import 'package:color_switch_game/run_mode/run_mode_brick.dart';
 import 'package:color_switch_game/run_mode/run_mode_game.dart';
 import 'package:color_switch_game/run_mode/run_mode_shuriken.dart';
+import 'package:color_switch_game/star_component.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/palette.dart';
@@ -14,6 +15,7 @@ class RunModePlayer extends PositionComponent with HasGameRef<RunModeGame> {
   final List<RunModeGround> grounds;
   bool _hasfallen = false;
   int stars = 0;
+  late StarComponent star;
 
   static const double fallthreshold = 1000.0;
 
@@ -90,6 +92,12 @@ class RunModePlayer extends PositionComponent with HasGameRef<RunModeGame> {
         if (!brick.collected) {
           // Check if the brick is already collected
           brick.collected = true; // Mark the brick as collected
+
+          // Trigger the star collection effect at the brick's position
+          final star =
+              StarComponent(position: brick.position, mode: GameMode.run);
+          parent!.add(star);
+          star.showCollectEffect();
 
           brick.removeFromParent(); // Remove the brick from the game world
           stars++; // Add a single point for each brick collected

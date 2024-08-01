@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
+import 'package:flame/particles.dart';
 import 'package:flutter/material.dart';
 
 class RunModeBrick extends PositionComponent {
@@ -35,5 +38,37 @@ class RunModeBrick extends PositionComponent {
       Rect.fromLTWH(smallRectWidth + gap, size.y + gap, smallRectWidth, size.y),
       brickPaint,
     );
+  }
+
+  void showCollisionEffect() {
+    final rnd = Random();
+    Vector2 randomVector2() => (Vector2.random(rnd) - Vector2.random(rnd)) * 80;
+
+    parent!.add(
+      ParticleSystemComponent(
+          position: position,
+          particle: Particle.generate(
+              count: 30,
+              lifespan: 0.8,
+              generator: (i) {
+                return AcceleratedParticle(
+                    acceleration: randomVector2(),
+                    speed: randomVector2(),
+                    child: ComputedParticle(
+                      renderer: (canvas, particle) {
+                        // Render the brick's particles
+                        canvas.drawRect(
+                          Rect.fromLTWH(
+                              0, 0, size.x * (1 - particle.progress), size.y),
+                          Paint()
+                            ..color = Colors.yellow
+                                .withOpacity(1 - particle.progress),
+                        );
+                      },
+                    ));
+              })),
+    );
+
+    removeFromParent();
   }
 }

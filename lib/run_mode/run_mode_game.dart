@@ -54,7 +54,7 @@ class RunModeGame extends FlameGame with TapCallbacks {
     world.addAll(bricks);
     world.addAll(shurikens);
     camera.viewfinder.zoom = 1;
-    debugMode = true;
+    // debugMode = true;
   }
 
   @override
@@ -68,7 +68,6 @@ class RunModeGame extends FlameGame with TapCallbacks {
     for (var element in world.children) {
       element.removeFromParent();
     }
-    print('Game Over');
   }
 
   @override
