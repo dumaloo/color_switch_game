@@ -9,6 +9,7 @@ import 'package:flame/game.dart';
 class RunModeGame extends FlameGame with TapCallbacks {
   late RunModePlayer player;
   final List<RunModeGround> grounds = [
+    RunModeGround(Vector2(-400, 0)),
     RunModeGround(Vector2(0, 0)),
     RunModeGround(Vector2(603, 0)),
     RunModeGround(Vector2(1206, 0)),

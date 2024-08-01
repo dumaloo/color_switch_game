@@ -16,7 +16,7 @@ class StarComponent extends PositionComponent with HasGameRef {
     required super.position,
     required this.mode,
   }) : super(
-          size: mode == GameMode.classic ? Vector2(20, 20) : Vector2(38, 38),
+          size: Vector2(38, 38),
           anchor: Anchor.center,
         );
 
@@ -46,7 +46,7 @@ class StarComponent extends PositionComponent with HasGameRef {
 
     if (mode == GameMode.classic) {
       // Classic mode effect
-      parent?.add(
+      parent!.add(
         ParticleSystemComponent(
           position: position,
           particle: Particle.generate(
@@ -73,6 +73,7 @@ class StarComponent extends PositionComponent with HasGameRef {
           ),
         ),
       );
+      removeFromParent();
     } else if (mode == GameMode.run) {
       // Run mode effect - make star big and fade away
       add(
@@ -85,7 +86,7 @@ class StarComponent extends PositionComponent with HasGameRef {
         ),
       );
 
-      parent?.add(
+      parent!.add(
         ParticleSystemComponent(
           position: position,
           particle: Particle.generate(
