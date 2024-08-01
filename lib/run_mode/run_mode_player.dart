@@ -1,4 +1,5 @@
 import 'package:color_switch_game/run_mode/run_mode_brick.dart';
+import 'package:color_switch_game/run_mode/run_mode_game.dart';
 import 'package:color_switch_game/run_mode/run_mode_shuriken.dart';
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
@@ -6,7 +7,7 @@ import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'run_mode_ground.dart';
 
-class RunModePlayer extends PositionComponent {
+class RunModePlayer extends PositionComponent with HasGameRef<RunModeGame> {
   Vector2 _velocity = Vector2(100, 0); // Initial horizontal velocity
   final Vector2 _acceleration = Vector2(0, 500); // Gravity
   int _jumps = 0;
@@ -24,6 +25,7 @@ class RunModePlayer extends PositionComponent {
     // ensure player starts above the ground
     if (grounds.isNotEmpty) {
       position.y = grounds.first.position.y - size.y;
+      position.x = 0;
     }
   }
 
@@ -104,7 +106,7 @@ class RunModePlayer extends PositionComponent {
           position.y + size.y > shuriken.position.y) {
         // Collision detected
         // Game over
-        debugPrint('Game Over');
+        gameRef.gameOver();
       }
     }
   }

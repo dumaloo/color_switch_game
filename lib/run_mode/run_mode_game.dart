@@ -16,31 +16,25 @@ class RunModeGame extends FlameGame with TapCallbacks {
     RunModeGround(Vector2(2412, 0)),
     RunModeGround(Vector2(3015, 0)),
     RunModeGround(Vector2(3618, 0)),
-    // Add more platforms as needed
   ];
 
   final List<RunModeBrick> bricks = [
-    RunModeBrick(Vector2(200, -150)),
-    RunModeBrick(Vector2(900, -150)),
-    RunModeBrick(Vector2(1500, -175)),
-    RunModeBrick(Vector2(2000, -160)),
-    RunModeBrick(Vector2(2500, -175)),
-    RunModeBrick(Vector2(3000, -150)),
-    RunModeBrick(Vector2(3500, -180)),
-    RunModeBrick(Vector2(4000, -150)),
-    // Add more bricks as needed
+    RunModeBrick(Vector2(250, -150)),
+    RunModeBrick(Vector2(500, -150)),
+    RunModeBrick(Vector2(855, -200)),
+    RunModeBrick(Vector2(1250, -150)),
+    RunModeBrick(Vector2(1750, -150)),
+    RunModeBrick(Vector2(2100, -250)),
+    RunModeBrick(Vector2(2500, -200)),
+    RunModeBrick(Vector2(2800, -200)),
   ];
 
   final List<RunModeShuriken> shurikens = [
-    RunModeShuriken(Vector2(700, -85)),
-    RunModeShuriken(Vector2(1200, -85)),
-    RunModeShuriken(Vector2(1800, -85)),
-    RunModeShuriken(Vector2(2300, -85)),
-    RunModeShuriken(Vector2(2800, -85)),
-    RunModeShuriken(Vector2(3300, -85)),
-    RunModeShuriken(Vector2(3800, -85)),
-    RunModeShuriken(Vector2(4300, -85)),
-    // Add more shurikens as needed
+    RunModeShuriken(Vector2(850, -63)),
+    RunModeShuriken(Vector2(1500, -63)),
+    RunModeShuriken(Vector2(2000, -63)),
+    RunModeShuriken(Vector2(2345, -63)),
+    RunModeShuriken(Vector2(2950, -63)),
   ];
 
   RunModeGame()
@@ -59,13 +53,22 @@ class RunModeGame extends FlameGame with TapCallbacks {
     world.addAll(grounds);
     world.addAll(bricks);
     world.addAll(shurikens);
-    // debugMode = true;
+    camera.viewfinder.zoom = 1;
+    debugMode = true;
   }
 
   @override
   void onTapDown(TapDownEvent event) {
     player.jump();
     super.onTapDown(event);
+  }
+
+  // Game over logic
+  void gameOver() {
+    for (var element in world.children) {
+      element.removeFromParent();
+    }
+    print('Game Over');
   }
 
   @override

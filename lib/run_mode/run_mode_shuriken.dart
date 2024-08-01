@@ -5,7 +5,7 @@ class RunModeShuriken extends PositionComponent {
   RunModeShuriken(Vector2 position)
       : super(
           position: position,
-          size: Vector2(50, 50), // Adjust size as needed
+          size: Vector2(60, 60), // Adjust size as needed
         );
 
   @override
