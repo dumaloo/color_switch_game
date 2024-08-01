@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:color_switch_game/run_mode/run_mode_brick.dart';
 import 'package:color_switch_game/run_mode/run_mode_ground.dart';
 import 'package:color_switch_game/run_mode/run_mode_player.dart';
@@ -5,8 +7,11 @@ import 'package:color_switch_game/run_mode/run_mode_shuriken.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
+import 'package:flame/rendering.dart';
+import 'package:flutter/material.dart';
 
-class RunModeGame extends FlameGame with TapCallbacks {
+class RunModeGame extends FlameGame
+    with TapCallbacks, HasTimeScale, HasDecorator {
   late RunModePlayer player;
   final List<RunModeGround> grounds = [
     RunModeGround(Vector2(-400, 0)),
@@ -38,6 +43,9 @@ class RunModeGame extends FlameGame with TapCallbacks {
     RunModeShuriken(Vector2(2950, -63)),
   ];
 
+  final ValueNotifier<int> currentScore = ValueNotifier(0);
+  bool isGameOver = false;
+
   RunModeGame()
       : super(
           camera: CameraComponent.withFixedResolution(
@@ -45,6 +53,15 @@ class RunModeGame extends FlameGame with TapCallbacks {
             height: 1000,
           ),
         );
+
+  @override
+  Color backgroundColor() => const Color(0xFF222222);
+
+  @override
+  FutureOr<void> onLoad() {
+    decorator = PaintDecorator.blur(0);
+    super.onLoad();
+  }
 
   @override
   void onMount() {
@@ -64,11 +81,12 @@ class RunModeGame extends FlameGame with TapCallbacks {
     super.onTapDown(event);
   }
 
-  // Game over logic
   void gameOver() {
+    isGameOver = true;
     for (var element in world.children) {
       element.removeFromParent();
     }
+    onGameOver?.call();
   }
 
   @override
@@ -81,7 +99,28 @@ class RunModeGame extends FlameGame with TapCallbacks {
           Vector2(playerX, camera.viewfinder.position.y);
     }
     player.checkCollision(
-        bricks, shurikens); // Check for collisions with bricks and shrurikens
+        bricks, shurikens); // Check for collisions with bricks and shurikens
     super.update(dt);
   }
+
+  void addScore() {
+    currentScore.value++;
+  }
+
+  bool get isGamePaused => timeScale == 0.0;
+  bool get isGamePlaying => !isGamePaused && !isGameOver;
+
+  void pauseGame() {
+    (decorator as PaintDecorator).addBlur(10);
+    timeScale = 0.0;
+    print('pause game');
+  }
+
+  void resumeGame() {
+    (decorator as PaintDecorator).addBlur(0);
+    timeScale = 1.0;
+    print('resume game');
+  }
+
+  VoidCallback? onGameOver;
 }

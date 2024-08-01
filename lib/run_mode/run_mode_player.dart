@@ -100,7 +100,7 @@ class RunModePlayer extends PositionComponent with HasGameRef<RunModeGame> {
           star.showCollectEffect();
 
           brick.removeFromParent(); // Remove the brick from the game world
-          stars++; // Add a single point for each brick collected
+          gameRef.addScore(); // Increment the score
           debugPrint('Stars: $stars');
         }
       }
