@@ -104,6 +104,14 @@ class _ClassicModePageState extends State<ClassicModePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text(
+                    "SCORE: ${_classicModeGame.currentScore.value}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const Text(
                     "PLAY AGAIN",
                     style: TextStyle(

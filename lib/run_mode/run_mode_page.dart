@@ -114,6 +114,14 @@ class _RunModePageState extends State<RunModePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Text(
+                    "SCORE: ${_myGameRunMode.currentScore.value}",
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   const Text(
                     "PLAY AGAIN",
                     style: TextStyle(
