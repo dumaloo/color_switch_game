@@ -1,3 +1,4 @@
+import 'package:color_switch_game/bgm_manager.dart';
 import 'package:color_switch_game/classic_mode/classic_mode_page.dart';
 import 'package:color_switch_game/run_mode/run_mode_page.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ class SelectModePage extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
+                  BgmManager.stop();
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const ClassicModePage(),
@@ -50,6 +52,7 @@ class SelectModePage extends StatelessWidget {
               ),
               child: InkWell(
                 onTap: () {
+                  BgmManager.stop();
                   Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => const RunModePage(),
