@@ -113,13 +113,11 @@ class RunModeGame extends FlameGame
   void pauseGame() {
     (decorator as PaintDecorator).addBlur(10);
     timeScale = 0.0;
-    print('pause game');
   }
 
   void resumeGame() {
     (decorator as PaintDecorator).addBlur(0);
     timeScale = 1.0;
-    print('resume game');
   }
 
   VoidCallback? onGameOver;

@@ -8,6 +8,7 @@ class SelectModePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF222222),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
