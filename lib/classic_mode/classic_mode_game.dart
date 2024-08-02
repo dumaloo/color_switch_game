@@ -86,7 +86,7 @@ class ClassicModeGame extends FlameGame
     _genrateGameComponentsAsNeeded(Vector2(0, -5300));
     _genrateGameComponentsAsNeeded(Vector2(0, -6600));
 
-    FlameAudio.bgm.play('background_music.mp3');
+    FlameAudio.bgm.play('classic_mode_bgm.mp3');
   }
 
   // generateInfiniteGameComponents
