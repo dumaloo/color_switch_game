@@ -1,5 +1,5 @@
 import 'package:color_switch_game/classic_mode/classic_mode_page.dart';
-import 'package:color_switch_game/run_mode/run_mode_page.dart';
+import 'package:color_switch_game/select_mode_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
@@ -142,27 +142,35 @@ class _HomePageState extends State<HomePage>
                 ],
               ),
             ),
+
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ClassicModePage(),
+
+            // add a game mode custom container
+            Container(
+              width: 200,
+              height: 50,
+              decoration: const BoxDecoration(
+                color: Colors.orangeAccent,
+              ),
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SelectModePage(),
+                    ),
+                  );
+                },
+                child: const Center(
+                  child: Text(
+                    'GAME MODES',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                    ),
                   ),
-                );
-              },
-              child: const Text('Classic Mode'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RunModePage(),
-                  ),
-                );
-              },
-              child: const Text('Run Mode'),
+                ),
+              ),
             ),
           ],
         ),
