@@ -1,13 +1,13 @@
 import 'package:color_switch_game/classic_mode/classic_mode_page.dart';
 import 'package:color_switch_game/run_mode/run_mode_page.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 void main() {
-  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const RunModePage(), // FOR NOW, WE WILL USE RunModePage
+      home: const HomePage(),
       theme: ThemeData.dark(),
     ),
   );
@@ -20,7 +20,25 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +49,39 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            SizedBox(
+              width: 200,
+              height: 200,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  AnimatedBuilder(
+                    animation: _controller,
+                    builder: (context, child) {
+                      return CustomPaint(
+                        size: Size(300, 300),
+                        painter: NestedCircleRotatorPainter(_controller.value),
+                      );
+                    },
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => const ClassicModePage(),
+                        ),
+                      );
+                    },
+                    child: Icon(
+                      Icons.play_arrow,
+                      size: 100,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.of(context).push(
@@ -57,4 +108,51 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+}
+
+class NestedCircleRotatorPainter extends CustomPainter {
+  final double progress;
+
+  NestedCircleRotatorPainter(this.progress);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 8;
+
+    const colorsList = [
+      // have 4 diff color circle rotator
+      [Colors.red, Colors.green, Colors.blue, Colors.yellow],
+      [Colors.green, Colors.blue, Colors.yellow, Colors.red],
+      [Colors.blue, Colors.yellow, Colors.red, Colors.green],
+      [Colors.yellow, Colors.red, Colors.green, Colors.blue],
+    ];
+
+    final radiusStep = size.width / 16;
+    final baseRadius = size.width / 4;
+
+    for (int j = 0; j < colorsList.length; j++) {
+      final colors = colorsList[j];
+      final segmentAngle = (2 * math.pi) / colors.length;
+      final startAngle = progress * 2 * math.pi;
+
+      for (int i = 0; i < colors.length; i++) {
+        paint.color = colors[i];
+        canvas.drawArc(
+          Rect.fromCircle(
+            center: Offset(size.width / 2, size.height / 2),
+            radius: baseRadius + j * radiusStep,
+          ),
+          startAngle + (i * segmentAngle),
+          segmentAngle,
+          false,
+          paint,
+        );
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(NestedCircleRotatorPainter oldDelegate) => true;
 }
