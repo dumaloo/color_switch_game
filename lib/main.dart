@@ -42,13 +42,74 @@ class _HomePageState extends State<HomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Color Switch Game'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            RichText(
+              text: const TextSpan(
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 2,
+                ),
+                children: [
+                  // Color Switch Replica
+
+                  // COLOR
+                  TextSpan(
+                      text: 'C', style: TextStyle(color: Colors.redAccent)),
+                  TextSpan(
+                      text: 'O', style: TextStyle(color: Colors.orangeAccent)),
+                  TextSpan(
+                      text: 'L', style: TextStyle(color: Colors.yellowAccent)),
+                  TextSpan(
+                      text: 'O', style: TextStyle(color: Colors.greenAccent)),
+                  TextSpan(
+                      text: 'R', style: TextStyle(color: Colors.blueAccent)),
+
+                  // having space between the words
+                  TextSpan(text: ' ', style: TextStyle(color: Colors.white)),
+
+                  // SWITCH
+                  TextSpan(
+                      text: 'S', style: TextStyle(color: Colors.purpleAccent)),
+                  TextSpan(
+                      text: 'W', style: TextStyle(color: Colors.pinkAccent)),
+                  TextSpan(
+                      text: 'I', style: TextStyle(color: Colors.cyanAccent)),
+                  TextSpan(
+                      text: 'T', style: TextStyle(color: Colors.limeAccent)),
+                  TextSpan(
+                      text: 'C', style: TextStyle(color: Colors.indigoAccent)),
+                  TextSpan(
+                      text: 'H', style: TextStyle(color: Colors.tealAccent)),
+
+                  // for getting the next word in next line
+                  TextSpan(text: '\n'),
+
+                  // for making the replica in center
+                  TextSpan(text: '     '),
+
+                  // REPLICA
+                  TextSpan(
+                      text: 'R', style: TextStyle(color: Colors.redAccent)),
+                  TextSpan(
+                      text: 'E', style: TextStyle(color: Colors.orangeAccent)),
+                  TextSpan(
+                      text: 'P', style: TextStyle(color: Colors.yellowAccent)),
+                  TextSpan(
+                      text: 'L', style: TextStyle(color: Colors.greenAccent)),
+                  TextSpan(
+                      text: 'I', style: TextStyle(color: Colors.blueAccent)),
+                  TextSpan(
+                      text: 'C', style: TextStyle(color: Colors.purpleAccent)),
+                  TextSpan(
+                      text: 'A', style: TextStyle(color: Colors.pinkAccent)),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
             SizedBox(
               width: 200,
               height: 200,
@@ -59,7 +120,7 @@ class _HomePageState extends State<HomePage>
                     animation: _controller,
                     builder: (context, child) {
                       return CustomPaint(
-                        size: Size(300, 300),
+                        size: const Size(300, 300),
                         painter: NestedCircleRotatorPainter(_controller.value),
                       );
                     },
@@ -72,7 +133,7 @@ class _HomePageState extends State<HomePage>
                         ),
                       );
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.play_arrow,
                       size: 100,
                       color: Colors.white,
