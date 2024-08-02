@@ -36,7 +36,7 @@ class RunModePlayer extends PositionComponent with HasGameRef<RunModeGame> {
     super.update(dt);
 
     if (_hasfallen) {
-      return;
+      gameRef.gameOver();
     }
 
     _velocity += _acceleration * dt;
