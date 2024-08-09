@@ -51,20 +51,24 @@ class _RunModePageState extends State<RunModePage> {
               child: SafeArea(
                 child: Row(
                   children: [
-                    IconButton(
-                      icon: Icon(_myGameRunMode.isGamePaused
-                          ? Icons.play_arrow
-                          : Icons.pause),
-                      onPressed: () {
-                        setState(() {
-                          if (_myGameRunMode.isGamePaused) {
-                            _myGameRunMode.resumeGame();
-                          } else {
-                            _myGameRunMode.pauseGame();
-                          }
-                        });
-                      },
-                    ),
+                    // Pause/Resume button (not working)
+                    // IconButton(
+                    //   icon: Icon(_myGameRunMode.isGamePaused
+                    //       ? Icons.play_arrow
+                    //       : Icons.pause),
+                    //   onPressed: () {
+                    //     setState(() {
+                    //       if (_myGameRunMode.isGamePaused) {
+                    //         _myGameRunMode.resumeGame();
+                    //       } else {
+                    //         _myGameRunMode.pauseGame();
+                    //       }
+                    //     });
+                    //   },
+                    // ),
+
+                    const SizedBox(width: 20),
+
                     // Display score
                     ValueListenableBuilder<int>(
                       valueListenable: _myGameRunMode.currentScore,

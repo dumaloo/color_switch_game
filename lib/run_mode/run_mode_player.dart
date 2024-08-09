@@ -14,7 +14,6 @@ class RunModePlayer extends PositionComponent with HasGameRef<RunModeGame> {
   int _jumps = 0;
   final List<RunModeGround> grounds;
   bool _hasfallen = false;
-  int stars = 0;
   late StarComponent star;
 
   static const double fallthreshold = 1000.0;
@@ -101,7 +100,6 @@ class RunModePlayer extends PositionComponent with HasGameRef<RunModeGame> {
 
           brick.removeFromParent(); // Remove the brick from the game world
           gameRef.addScore(); // Increment the score
-          debugPrint('Stars: $stars');
         }
       }
     }

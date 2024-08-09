@@ -71,8 +71,6 @@ class RunModeGame extends FlameGame
     world.addAll(grounds);
     world.addAll(bricks);
     world.addAll(shurikens);
-    camera.viewfinder.zoom = 1;
-    // debugMode = true;
   }
 
   @override
