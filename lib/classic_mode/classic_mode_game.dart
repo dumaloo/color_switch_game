@@ -1,4 +1,3 @@
-import 'package:color_switch_game/bgm_manager.dart';
 import 'package:color_switch_game/classic_mode/classic_mode_circle_rotator.dart';
 import 'package:color_switch_game/classic_mode/classic_mode_color_switcher.dart';
 import 'package:color_switch_game/classic_mode/classic_mode_ground.dart';
@@ -7,6 +6,7 @@ import 'package:color_switch_game/star_component.dart';
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/rendering.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flame/game.dart';
 
@@ -40,6 +40,7 @@ class ClassicModeGame extends FlameGame
   @override
   void onLoad() {
     decorator = PaintDecorator.blur(0);
+    // FlameAudio.bgm.initialize();
     super.onLoad();
   }
 
@@ -85,7 +86,7 @@ class ClassicModeGame extends FlameGame
     _genrateGameComponentsAsNeeded(Vector2(0, -5300));
     _genrateGameComponentsAsNeeded(Vector2(0, -6600));
 
-    BgmManager.play('classic_mode_bgm.mp3');
+    // FlameAudio.bgm.play('classic_mode_bgm.mp3');
   }
 
   // generateInfiniteGameComponents
@@ -145,7 +146,7 @@ class ClassicModeGame extends FlameGame
   }
 
   void gameOver() {
-    BgmManager.stop();
+    FlameAudio.bgm.stop();
 
     isGameOver = true;
 
@@ -166,13 +167,13 @@ class ClassicModeGame extends FlameGame
   void pauseGame() {
     (decorator as PaintDecorator).addBlur(10);
     timeScale = 0.0;
-    BgmManager.pause();
+    FlameAudio.bgm.pause();
   }
 
   void resumeGame() {
     (decorator as PaintDecorator).addBlur(0);
     timeScale = 1.0;
-    BgmManager.resume();
+    FlameAudio.bgm.resume();
   }
 
   void addScore() {

@@ -1,5 +1,6 @@
 import 'package:color_switch_game/classic_mode/classic_mode_game.dart';
 import 'package:flame/game.dart';
+import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 
 class ClassicModePage extends StatefulWidget {
@@ -17,6 +18,8 @@ class _ClassicModePageState extends State<ClassicModePage> {
   void initState() {
     _classicModeGame = ClassicModeGame();
     _classicModeGame.onGameOver = _handleGameOver;
+    FlameAudio.bgm.initialize();
+    FlameAudio.bgm.play('classic_mode_bgm.mp3');
     super.initState();
   }
 
@@ -31,6 +34,13 @@ class _ClassicModePageState extends State<ClassicModePage> {
       _isGameOver = false;
       _classicModeGame.initializeClassicModeGame();
     });
+  }
+
+  @override
+  void dispose() {
+    // solves the music playing in bg issue
+    FlameAudio.bgm.dispose();
+    super.dispose();
   }
 
   @override
